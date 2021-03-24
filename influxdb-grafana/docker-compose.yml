@@ -1,0 +1,21 @@
+version: "3.9"
+
+services:
+  influxdb:
+    image: influxdb:1.8
+    container_name: bot_influxdb
+    ports:
+      - 8086:8086
+    volumes:
+      - ./grafana/influxdb:/var/lib/influxdb
+
+  grafana:
+    image: grafana/grafana:latest
+    container_name: bot_grafana
+    ports:
+      - 3000:3000
+    volumes:
+      - ./grafana:/var/lib/grafana
+    user: "$UID:$GID"
+    environment:
+      GF_SECURITY_ADMIN_PASSWORD: "hogehoge"
